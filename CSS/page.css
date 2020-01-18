@@ -53,7 +53,6 @@ footer{
     align-items: center;
 }
 
-
 .row-aligned{
     display: flex;
     flex-direction: row;
@@ -68,6 +67,17 @@ footer{
     justify-content: space-between;
     /* overflow: hidden; */
 }
+
+.text-centered{
+    text-align: center;
+}
+
+.primary-color{
+    color: var(--primary-color);
+}
+.primary-color:visited {
+    color: var(--primary-color);
+  }
 
 /* -- Top-Bar -- */
 

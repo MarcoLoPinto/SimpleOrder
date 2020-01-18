@@ -19,7 +19,7 @@ if(isset($_POST["invio"])){
         $escapedPassword = mysqli_real_escape_string($mysqliConnection,$_POST['password']);
         $queryResult = mysqli_query($mysqliConnection,
                     "SELECT *
-                    FROM tableOrder
+                    FROM admin
                     WHERE name = '".$escapedName."' AND password ='".$escapedPassword. "'");
         
         //Siamo arrivati al punto in cui la query ha prodotto risultato:
@@ -29,9 +29,9 @@ if(isset($_POST["invio"])){
             $_SESSION['login'] = true;
             $_SESSION['id'] = $row['id'];
             $_SESSION['name'] = $row['name'];
-            $_SESSION['type'] = 'user';
+            $_SESSION['type'] = 'admin';
 
-            header("Location: home.php");   //accesso alla pagina iniziale
+            header("Location: adminPanel.php");   //accesso alla pagina iniziale
             exit();
         } else $error = "Nome e/o password errati!";
     }
@@ -62,8 +62,8 @@ require_once("./components/xmlMode.html");
         <div class="top-box">
             <div class="column-centered top-box-color top-box-margin">
                 <!-- Icon made by Freepik from www.sefsfs.com -->
-                <img class="logo" src="./imgs/logo.ico" alt="logo">
                 <p class="logo-name">SimpleOrder</p>
+                <p class="logo-name">Admin</p>
             </div>
             <!-- SVG separator -->
             <div class="">
@@ -75,17 +75,15 @@ require_once("./components/xmlMode.html");
 
     </div>
 
-    <div class="content column-aligned">
+    <div class="content">
 
         <form method="post" action="<?php $_SERVER['PHP_SELF']?>" class="column-centered">
-            <input type="text" class="input-login" name="name" placeholder="nome tavolo" required />
+            <input type="text" class="input-login" name="name" placeholder="nome admin" required />
             <input type="password" class="input-login" name="password" placeholder="password"  required />
             <p><input type="submit" class="button-form" name="invio" value="Login" /><input type="reset" class="button-form" value="Reset" /></p>
         </form>
 
         <?php echo isset($error) ? "<div class=\"error\">" . $error . "</div>" : ""; ?>
-
-        <p class="text-centered">Sei admin? Accedi&nbsp;<a href="./admin.php" class="primary-color">qui</a></p>
 
     </div>
 
