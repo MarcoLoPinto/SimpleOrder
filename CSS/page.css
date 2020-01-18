@@ -3,13 +3,16 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
-    --primary-color: #267dff;
+    --primary-color: burlywood;
     --background-color: white;
-    --super-background-color: rgb(255, 250, 244);
-    --accent-color-2: #26baff;
-    --accent-color: #64c4ed;
-    --background-text-color: black;
     --primary-text-color: white;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }
 
 body {
@@ -31,16 +34,25 @@ footer{
     color: var(--primary-text-color);
     background: #36383e;
     padding: 4px 16px 4px 16px;
+    font-size: 0.8em;
 }
 
 /* ---- */
 
-.centered{
+.row-centered{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
+
+.column-centered{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .row-aligned{
     display: flex;
@@ -57,8 +69,89 @@ footer{
     /* overflow: hidden; */
 }
 
-/* ---- */
+/* -- Top-Bar -- */
 
-.svg-color{
-    fill: burlywood;
+.logo{
+    height: 4em;
+    animation-name: wobble;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+}
+@keyframes wobble{
+    from{
+        transform: translate(0em, -0.5em);
+    }
+
+    50%{
+        transform: translate(0em, 0.5em);
+    }
+
+    to{
+        transform: translate(0em, -0.5em);
+    }
+}
+
+.logo-name{
+    font-size: 2.5em;
+    margin: 0.2em;
+    color: var(--primary-text-color);
+    -webkit-text-stroke: 1px black;
+}
+
+.top-box-color{
+    background-color: var(--primary-color);
+}
+.top-box-svg-color{
+    fill: var(--primary-color);
+}
+.top-box-margin{
+    padding: 2em;
+}
+
+/* --Content-login -- */
+
+.input-login{
+    width: 60%;
+    padding: 0.5em 1em;
+    margin: 0.5em;
+    border-color: white;
+    border-style: solid;
+    border-radius: 1em;
+    font-size: 1em;
+
+    box-shadow: 2px 2px 0px 0px var(--primary-color);
+}
+.input-login:focus{
+    outline:none;
+}
+
+.button-form{
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration:none;
+    border: none;
+    border-radius: 2em;
+    padding: 0.5em 2em;
+    margin: 0em 0.5em;
+    font-size: 1em;
+}
+.button-form:hover{
+    cursor: pointer;
+}
+.button-form:focus{
+    outline:none;
+}
+
+.error{
+    text-align: center;
+    font-size: 1em;
+}
+
+/* --Media-Query PC -- */
+
+/* Se su PC */
+@media only screen and (min-width: 768px){
+    .input-login{
+        width: 400px;
+    }
 }
