@@ -1,0 +1,44 @@
+.impact-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    background-image: linear-gradient(to top, rgb(255, 250, 244) 50%, rgba(38,186,255,0.2));
+    position: relative;
+}
+
+
+.impact-box .left-quote ,
+.impact-box .right-quote {
+    color: rgba(0, 0, 0, 0.15);
+    position: absolute;
+    font-size: 8rem;
+    width: 4rem;
+    height: 4rem;
+    font-family: "Perpetua Titling MT Bold";
+}
+
+.impact-box .left-quote {
+	left: 3rem;
+	top: -8rem;
+}
+
+.impact-box .right-quote {
+	right: 3rem;
+	bottom: -8rem;
+}
+
+
+.impact-box *{
+    width: 65%;
+    text-align: center;
+}
+
+.impact-box .title{
+    font-weight: bold;
+}
+
+.impact-box .info{
+    font-weight: lighter;
+}

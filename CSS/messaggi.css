@@ -1,0 +1,51 @@
+.user-view{
+    margin-left: 8vw;
+}
+
+.messageTitle{
+    margin: auto;
+}
+
+.messageUsername{
+    margin: 0px 0px 10px 0px;
+    font-weight: bold;
+}
+
+.messageText{
+    margin: 0px 0px 0px 0px;
+}
+
+.messageTime{
+    color: rgb(168, 167, 167);
+    margin: 10px 0px 0px 0px;
+    box-sizing: border-box;
+}
+
+.partecipant-view{
+    margin-right: 8vw;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.stickyComment {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding: 0.5em;
+    margin: 4px;
+    background-color: var(--background-color);
+    font-size: 24px;
+}
+
+.messageText{
+    flex-grow: 1;
+}
+
+.textbox{
+    margin: 0px 5px;
+}
+
+.report{
+    color: red;
+}
