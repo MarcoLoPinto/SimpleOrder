@@ -5,10 +5,15 @@ $error = NULL;
 //Mi connetto al DB per il FORM...
 require_once("./components/dbVariables.php");
 require_once("./components/dbConnection.php");
-//Connessi, ora procediamo con la query per il login o signup se necessaria...
-require_once("./components/loginSignupForm.php");
+session_start();
 
-if(!isset($_SESSION)) session_start(); //da qui in poi qualsiasi pagina navigo avro' le mie variabili salvate in $_SESSION
+if(isset($_SESSION['login']) && isset($_SESSION['type']) && $_SESSION['type'] == 'user'){
+    header('LOCATION:home.php');
+    exit();
+} else if(isset($_SESSION['login']) && isset($_SESSION['type']) && $_SESSION['type'] == 'admin'){
+    header('LOCATION:adminPanel.php');
+    exit();
+}
 
 if(isset($_POST["invio"])){
     if (empty($_POST['name']) || empty($_POST['password'])){
@@ -20,7 +25,7 @@ if(isset($_POST["invio"])){
         $queryResult = mysqli_query($mysqliConnection,
                     "SELECT *
                     FROM tableOrder
-                    WHERE name = '".$escapedName."' AND password ='".$escapedPassword. "'");
+                    WHERE name = '".$escapedName."' AND password ='".$escapedPassword."'");
         
         //Siamo arrivati al punto in cui la query ha prodotto risultato:
         //il DB allora dovrà rilasciare solo una riga con quell'user+pass (altrimenti non sarebbe corretto!)
@@ -60,10 +65,10 @@ require_once("./components/xmlMode.html");
     <div class="top-bar">
 
         <div class="top-box">
-            <div class="column-centered top-box-color top-box-margin">
+            <div class="column-centered top-box-color top-box-padding">
                 <!-- Icon made by Freepik from www.sefsfs.com -->
                 <img class="logo" src="./imgs/logo.ico" alt="logo">
-                <p class="logo-name">SimpleOrder</p>
+                <p class="logo-name fade-in">SimpleOrder</p>
             </div>
             <!-- SVG separator -->
             <div class="">

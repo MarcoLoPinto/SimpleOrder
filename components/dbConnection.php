@@ -4,7 +4,8 @@
 
     //controllo della connessione
     if (mysqli_connect_errno($mysqliConnection)) {
-        printf("Errore connessione al db: %s\n", mysqli_connect_error($mysqliConnection));
+        header("Location: connectionError.php");
+        //printf("Errore connessione al db: %s\n", mysqli_connect_error($mysqliConnection));
         exit();
     }
 ?>

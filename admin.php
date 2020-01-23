@@ -5,10 +5,15 @@ $error = NULL;
 //Mi connetto al DB per il FORM...
 require_once("./components/dbVariables.php");
 require_once("./components/dbConnection.php");
-//Connessi, ora procediamo con la query per il login o signup se necessaria...
-require_once("./components/loginSignupForm.php");
+session_start();
 
-if(!isset($_SESSION)) session_start(); //da qui in poi qualsiasi pagina navigo avro' le mie variabili salvate in $_SESSION
+if(isset($_SESSION['login']) && isset($_SESSION['type']) && $_SESSION['type'] == 'user'){
+    header('LOCATION:home.php');
+    exit();
+} else if(isset($_SESSION['login']) && isset($_SESSION['type']) && $_SESSION['type'] == 'admin'){
+    header('LOCATION:adminPanel.php');
+    exit();
+}
 
 if(isset($_POST["invio"])){
     if (empty($_POST['name']) || empty($_POST['password'])){
@@ -60,7 +65,7 @@ require_once("./components/xmlMode.html");
     <div class="top-bar">
 
         <div class="top-box">
-            <div class="column-centered top-box-color top-box-margin">
+            <div class="column-centered top-box-color top-box-padding">
                 <!-- Icon made by Freepik from www.sefsfs.com -->
                 <p class="logo-name">SimpleOrder</p>
                 <p class="logo-name">Admin</p>
@@ -75,7 +80,7 @@ require_once("./components/xmlMode.html");
 
     </div>
 
-    <div class="content">
+    <div class="content  column-aligned">
 
         <form method="post" action="<?php $_SERVER['PHP_SELF']?>" class="column-centered">
             <input type="text" class="input-login" name="name" placeholder="nome admin" required />
@@ -84,6 +89,8 @@ require_once("./components/xmlMode.html");
         </form>
 
         <?php echo isset($error) ? "<div class=\"error\">" . $error . "</div>" : ""; ?>
+
+        <p class="text-centered">Vuoi ordinare? Accedi&nbsp;<a href="./index.php" class="primary-color">qui</a></p>
 
     </div>
 

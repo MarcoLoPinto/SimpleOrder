@@ -17,8 +17,10 @@ CREATE TABLE food(
     id INT UNSIGNED AUTO_INCREMENT,
     name VARCHAR(60) NOT NULL,
     price INT UNSIGNED NOT NULL,
+    id_category INT UNSIGNED,
     PRIMARY KEY(id),
-    UNIQUE(name)
+    UNIQUE(name),
+    CONSTRAINT ref_category FOREIGN KEY (id_category) REFERENCES category(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE foodInstance(
