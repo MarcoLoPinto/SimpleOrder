@@ -11,6 +11,14 @@ require_once("./components/checkSession.php");
 $checkTypeSession('user');
 
 require_once("./components/menuFunctions.php");
+if(isset($_POST["ordine"])){
+    $id = (int)$_POST["idOrder"];
+    $quantity = (int)$_POST["quantity"];
+    if($id !== 0 && $quantity !== 0){ //if it's a valid number
+        $addToCart($id,$quantity,$_SESSION['id']);
+    }
+    
+}
 ?>
 
 <?php
@@ -36,19 +44,18 @@ require_once("./components/xmlMode.html");
             <div class="row-aligned top-box-color top-box-padding">
                 <p><a href="./logout.php" class="top-box-text">Logout</a></p>
                 <p class="logo-name top-box-element-centered">Ordina</p>
-                <i class="material-icons top-box-icon">shopping_cart</i>
+                <p class="container-top-box-icon">
+                    <i class="material-icons top-box-icon">shopping_cart</i>
+                    <strong class="elements-in-cart">0</strong>
+                </p>
             </div>
         </div>
 
     </div>
 
     <div class="content column-aligned">
-        <div>
-            <p class="primary-color text-title">Primi</p>
-            <hr class="hr-primary-color" />
-        </div>
 
-        <?php //print_r($getMenu()); ?>
+        <?php print_r($getMenu()); ?>
 
     </div>
 

@@ -17,6 +17,7 @@ CREATE TABLE food(
     id INT UNSIGNED AUTO_INCREMENT,
     name VARCHAR(60) NOT NULL,
     price INT UNSIGNED NOT NULL,
+    description VARCHAR(250) NOT NULL,
     id_category INT UNSIGNED,
     PRIMARY KEY(id),
     UNIQUE(name),
