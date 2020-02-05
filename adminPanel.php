@@ -31,16 +31,51 @@ require_once("./components/xmlMode.html");
     <div class="top-bar">
 
         <div class="top-box">
-            <div class="column-centered top-box-color top-box-padding">
-                <p class="logo-name fade-in">Pannello di Controllo</p>
+            <div class="row-aligned top-box-color top-box-padding">
+                <p><a href="./logout.php" class="top-box-text">Logout</a></p>
+                <p class="logo-name top-box-element-centered">Gestione</p>
             </div>
         </div>
 
     </div>
 
-    <div class="content column-aligned">
+    <div class="content responsive-content">
 
-        <p class="text-centered">Pagina admin, esci da&nbsp;<a href="./logout.php" class="primary-color">qui</a></p>
+        <div class="card row-aligned">
+            <div class="card-left">
+                <p class="card-genere">Crea/elimina un tavolo</p>
+            </div>
+            <div class="card-right">
+                <a class="button-form" href="./createTables.php">Vai</a>
+            </div>
+        </div>
+
+        <div class="card row-aligned">
+            <div class="card-left">
+                <p class="card-genere">Genera conto</p>
+            </div>
+            <div class="card-right">
+                <a class="button-form" href="./checkTables.php">Vai</a>
+            </div>
+        </div>
+
+        <div class="card row-aligned">
+            <div class="card-left">
+                <p class="card-genere">Tavoli liberi ed occupati</p>
+            </div>
+            <div class="card-right">
+                <a class="button-form" href="./freeTables.php">Vai</a>
+            </div>
+        </div>
+
+        <div class="card row-aligned">
+            <div class="card-left">
+                <p class="card-genere">Ordini</p>
+            </div>
+            <div class="card-right">
+                <a class="button-form" href="./orderTables.php">Vai</a>
+            </div>
+        </div>
 
     </div>
 

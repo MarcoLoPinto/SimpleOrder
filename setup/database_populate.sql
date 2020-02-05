@@ -1,10 +1,12 @@
 INSERT INTO tableOrder (name, password)
 VALUES
-    ('100', '100');
+    ('100', '100'),
+    ('101', '101'),
+    ('102', '102');
 
 INSERT INTO admin (name, password)
 VALUES
-    ('adminPanelOrder', 'adminPasswordOrder');
+    ('adm', 'adm');
 
 INSERT INTO category (type)
 VALUES

@@ -2,6 +2,7 @@ CREATE TABLE tableOrder(
     id INT UNSIGNED AUTO_INCREMENT,
     name VARCHAR(60) NOT NULL,
     password VARCHAR(60) NOT NULL,
+    isTaken BIT NOT NULL DEFAULT 0,
     PRIMARY KEY(id),
     UNIQUE(name)
 );
@@ -29,6 +30,7 @@ CREATE TABLE foodInstance(
     quantity INT UNSIGNED NOT NULL,
     id_food INT UNSIGNED,
     id_tableOrder INT UNSIGNED,
+    time DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
     CONSTRAINT ref_food FOREIGN KEY (id_food) REFERENCES food(id) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT ref_tableOrder FOREIGN KEY (id_tableOrder) REFERENCES tableOrder(id) ON DELETE SET NULL ON UPDATE CASCADE

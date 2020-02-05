@@ -31,14 +31,16 @@ if(isset($_POST["invio"])){
         //il DB allora dovrà rilasciare solo una riga con quell'user+pass (altrimenti non sarebbe corretto!)
         $row = mysqli_fetch_array($queryResult);
         if ($row){
-            $_SESSION['login'] = true;
-            $_SESSION['id'] = $row['id'];
-            $_SESSION['name'] = $row['name'];
-            $_SESSION['type'] = 'user';
+            if($row["isTaken"] == 1){
+                $_SESSION['login'] = true;
+                $_SESSION['id'] = $row['id'];
+                $_SESSION['name'] = $row['name'];
+                $_SESSION['type'] = 'user';
 
-            header("Location: home.php");   //accesso alla pagina iniziale
-            exit();
-        } else $error = "Nome e/o password errati!";
+                header("Location: home.php");   //accesso alla pagina iniziale
+                exit();
+            } else $error = "Tavolo libero, non pu&ograve; essere occupato";
+        } else $error = "Nome e/o password errati";
     }
 
 }
@@ -82,7 +84,7 @@ require_once("./components/xmlMode.html");
 
     <div class="content column-aligned">
 
-        <form method="post" action="<?php $_SERVER['PHP_SELF']?>" class="column-centered">
+        <form method="post" action="<?php $_SERVER['PHP_SELF']?>" class="column-centered center-margin">
             <input type="text" class="input-login" name="name" placeholder="nome tavolo" required />
             <input type="password" class="input-login" name="password" placeholder="password"  required />
             <p><input type="submit" class="button-form" name="invio" value="Login" /><input type="reset" class="button-form" value="Reset" /></p>

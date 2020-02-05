@@ -175,6 +175,10 @@ footer{
 
 /* --Content-login -- */
 
+.center-margin{
+    margin: auto 0;
+}
+
 .input-login{
     width: 60%;
     padding: 0.5em 1em;
@@ -190,6 +194,17 @@ footer{
     outline:none;
 }
 
+.input-text{
+    padding: 0.5em 1em;
+    margin: 0.5em;
+    border-color: white;
+    border-style: solid;
+    border-radius: 1em;
+    font-size: 1em;
+
+    box-shadow: 2px 2px 0px 0px var(--primary-color);
+}
+
 .button-form{
     background-color: var(--primary-color);
     color: white;
@@ -197,14 +212,19 @@ footer{
     border: none;
     border-radius: 2em;
     padding: 0.5em 2em;
-    margin: 0em 0.5em;
+    margin: 0.5em 0.5em;
     font-size: 1em;
 }
 .button-form:hover{
     cursor: pointer;
+    background-color: var(--primary-color-selected);
 }
 .button-form:focus{
     outline:none;
+}
+.button-form:disabled {
+    background: #dddddd;
+    cursor: default;
 }
 
 .error{
@@ -212,12 +232,17 @@ footer{
     font-size: 1em;
 }
 
-/* --Media-Query PC -- */
+/* -- Media-Query PC -- */
 
 /* Se su PC */
 @media only screen and (min-width: 768px){
     .input-login{
         width: 400px;
+    }
+
+    .responsive-content{
+        width: 748px;
+        margin: auto;
     }
 }
 
@@ -277,6 +302,10 @@ footer{
     width: 100%;
 }
 
+.bottom-dots{
+    transform: translate(0,-0.2em);
+}
+
 .quantity{
     font-size: 1em;
     width: 2em;
@@ -302,4 +331,48 @@ footer{
     margin-left: 1em;
     margin-bottom: 1em;
     color: gray;
+}
+
+/* --Taken from ThinkInk -- */
+
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 6px;
+    padding: 1.5em;
+    margin: 10px;
+    background-color: var(--background-color);
+}
+
+.card-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.card-right{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    text-decoration: none;
+}
+
+.card-left *, .card-right *{
+    margin: 0px 5px;
+}
+
+/* --Table-- */
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    text-align: center;
 }

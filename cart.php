@@ -12,16 +12,6 @@ $checkTypeSession('user');
 
 require_once("./components/menuFunctions.php");
 
-if(isset($_POST["ordine"])){
-    $id = (int)$_POST["idOrder"];
-    $quantity = (int)$_POST["quantity"];
-    if($id !== 0 && $quantity !== 0){ //if it's a valid number
-        $response = $addToCart($id,$quantity,$_SESSION['id']);
-        if($response) $response = "x ".$_POST["quantity"]." ".$_POST["foodOrder"].": ordinato con successo";
-        else $response = "Errore nell'ordine";
-    }
-    
-}
 ?>
 
 <?php
@@ -33,7 +23,6 @@ require_once("./components/xmlMode.html");
     <meta charset="UTF-8">
     <title>SimpleOrder</title>
     <link rel="stylesheet" type="text/css" href="./CSS/page.css">
-    <link rel="stylesheet" type="text/css" href="./CSS/modal.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
     <link rel="icon" href="./imgs/logo.ico" type="image/x-icon" />
@@ -47,7 +36,7 @@ require_once("./components/xmlMode.html");
         <div class="top-box">
             <div class="row-aligned top-box-color top-box-padding">
                 <p><a href="./logout.php" class="top-box-text">Logout</a></p>
-                <p class="logo-name top-box-element-centered">Ordina</p>
+                <p class="logo-name top-box-element-centered">Spesa</p>
                 <a class="container-top-box-icon" href="./cart.php">
                     <i class="material-icons top-box-icon">shopping_cart</i>
                     <strong class="elements-in-cart"><?php echo $getNumberFoodsFromCart($_SESSION["id"]); ?></strong>
@@ -57,13 +46,14 @@ require_once("./components/xmlMode.html");
 
     </div>
 
-    <div class="content column-aligned">
+    <div class="content">
+        <p class="text-centered"><a href="./home.php" class="primary-color">Torna agli ordini</a></p>
 
-        <?php print_r($getMenu()); ?>
-        <?php 
-            require_once("./components/modal.php"); 
-            if($response != NULL) $generateModal("mod",$response);
-        ?>
+        <p class="text-centered">
+            Sei il tavolo: <?php echo $_SESSION["name"] ?>
+        </p>
+
+        <?php echo $getTableFoodsList($_SESSION["id"]); ?>
 
     </div>
 
