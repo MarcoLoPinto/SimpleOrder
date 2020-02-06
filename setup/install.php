@@ -3,7 +3,7 @@
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>DB Installer v 4.0 Ultra Deluxe</title>
+        <title>DB Installer</title>
     </head>
 
     <body>
@@ -71,6 +71,18 @@
                 echo "<p>Popolamento non riuscito, errore: ".mysqli_error($mysqliConnection)."</p>";
                 exit();
             }
+
+            $encryptedAdminPassword = $encrypt_decrypt("adm","e");
+            $adminQueryStr =
+                "INSERT INTO admin (name, password)
+                VALUES
+                    ('adm', '".$encryptedAdminPassword."');";
+
+            $queryResult = mysqli_query($mysqliConnection,$adminQueryStr);
+
+            if(!$queryResult){
+                echo "<p>Admin non creato!! Errore!</p>";
+            } else echo "<p>Admin creato!</p>";
 
 
             //Chiudiamo la connessione

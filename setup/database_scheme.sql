@@ -1,7 +1,7 @@
 CREATE TABLE tableOrder(
     id INT UNSIGNED AUTO_INCREMENT,
     name VARCHAR(60) NOT NULL,
-    password VARCHAR(60) NOT NULL,
+    password VARCHAR(80) NOT NULL,
     isTaken BIT NOT NULL DEFAULT 0,
     PRIMARY KEY(id),
     UNIQUE(name)

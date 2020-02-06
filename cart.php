@@ -46,7 +46,7 @@ require_once("./components/xmlMode.html");
 
     </div>
 
-    <div class="content">
+    <div class="content responsive-content">
         <p class="text-centered"><a href="./home.php" class="primary-color">Torna agli ordini</a></p>
 
         <p class="text-centered">

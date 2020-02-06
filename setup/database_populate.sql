@@ -1,13 +1,3 @@
-INSERT INTO tableOrder (name, password)
-VALUES
-    ('100', '100'),
-    ('101', '101'),
-    ('102', '102');
-
-INSERT INTO admin (name, password)
-VALUES
-    ('adm', 'adm');
-
 INSERT INTO category (type)
 VALUES
     ('Primo'),

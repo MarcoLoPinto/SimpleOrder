@@ -11,6 +11,7 @@ require_once("./components/checkSession.php");
 $checkTypeSession('admin');
 
 require_once("./components/menuFunctions.php");
+require_once("./components/functions.php");
 if(isset($_POST["invio"])){
     if (empty($_POST['name']) || empty($_POST['password'])){
         $response = "Nome e/o password mancanti";
@@ -19,10 +20,12 @@ if(isset($_POST["invio"])){
         $escapedName = mysqli_real_escape_string($mysqliConnection,$_POST['name']);
         $escapedPassword = mysqli_real_escape_string($mysqliConnection,$_POST['password']);
 
+        $encrypted = $encrypt_decrypt($escapedPassword,"e");
+
         $queryResult = mysqli_query($mysqliConnection,
                     "INSERT INTO tableOrder (name, password)
                     VALUES
-                        ('".$escapedName."', '".$escapedPassword."');");
+                        ('".$escapedName."', '".$encrypted."');");
 
         if($queryResult) $response = "Tavolo generato con successo";
         else $response = "Impossibile generare tavolo (esiste gia?)";

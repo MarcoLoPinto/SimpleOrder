@@ -3,13 +3,6 @@
     require_once(__DIR__."/dbVariables.php");
     require_once(__DIR__."/dbConnection.php");
 
-    $random_str = function(
-        $length
-    ) {
-        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        return substr(str_shuffle($chars),0,$length);
-    };
-
     $getMenu = function() use ($mysqliConnection){
         $arr = Array();
         $html = "";
@@ -173,7 +166,7 @@
         return true;
     };
 
-    $getTablesInfo = function() use ($mysqliConnection){
+    $getTablesInfo = function() use ($mysqliConnection,$encrypt_decrypt){
         $html = 
             '<table>
                 <tr>
@@ -191,11 +184,12 @@
                 $html .= 
                     '<tr>
                         <td>'.$table["name"].'</td>
-                        <td>'.$table["password"].'</td>
+                        <td>'.$encrypt_decrypt($table["password"],'d').'</td>
                         <td>
-                            <form method="post" action="'.$_SERVER['PHP_SELF'].'">
-                                <input type="hidden" name="idTable" value="'.$table["id"].'" />
-                                <input type="submit" class="button-form" name="resetTable" value="Vai" '.($table["isTaken"]?"":"disabled").' />
+                            <form method="get" action="'.$_SERVER['PHP_SELF'].'">
+                                <input type="hidden" name="id" value="'.$table["id"].'" />
+                                <input type="hidden" name="name" value="'.$table["name"].'" />
+                                <input type="submit" class="button-form" value="Vai" '.($table["isTaken"]?"":"disabled").' />
                             </form>
                         </td>
                     </tr>';
@@ -277,13 +271,14 @@
         return false;
     };
 
-    $generateNewPassword = function($id) use ($mysqliConnection,$random_str,$getTableInfo){
+    $generateNewPassword = function($id) use ($mysqliConnection,$random_str,$getTableInfo,$encrypt_decrypt){
         $table = $getTableInfo($id);
         if($table!=NULL && $table["isTaken"] == 0){
             $pass = $random_str(8);
+            $encryped = $encrypt_decrypt($pass,'e');
             $queryResult = mysqli_query($mysqliConnection,
                         "UPDATE tableOrder
-                        SET password = '".$pass."'
+                        SET password = '".$encryped."'
                         WHERE id = '".$id."';");
             
             if ($queryResult) return true;
@@ -291,15 +286,31 @@
         return false;
     };
 
-    $getFoodsList = function() use ($mysqliConnection){
+    $getOrders = function() use ($mysqliConnection){
         $html = "";
         $queryResult = mysqli_query($mysqliConnection,
-                    "SELECT *
-                    FROM foodInstance;");
+                    "SELECT f.name as name, fi.quantity as quantity, fi.time as time, t.name as tableName
+                    FROM foodInstance fi, tableOrder t, food f
+                    WHERE fi.id_tableOrder = t.id
+                    AND fi.id_food = f.id
+                    ORDER BY time DESC;");
         
         $res =  mysqli_fetch_all_php5($queryResult, MYSQLI_ASSOC);
         if ($res){
-            //TODO
+            foreach($res as $k=>$food){
+                $html .= 
+                    '<div class="minicard row-aligned">
+                        <div class="column-aligned">
+                            <h3 class="card-genere center-margin">Tavolo: '.$food["tableName"].' (x'.$food["quantity"].')</h3>
+                            <p class="card-genere">'.$food["name"].'</p>
+                        </div>
+                        <div class="card-right">
+                        <p class="card-genere">'.$food["time"].'</p>
+                        </div>
+                    </div>';
+            }
         }
+        return $html;
     };
+
 ?>

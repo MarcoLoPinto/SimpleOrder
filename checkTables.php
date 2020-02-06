@@ -45,21 +45,32 @@ require_once("./components/xmlMode.html");
 
     <div class="content responsive-content">
 
-        <p class="text-centered"><a href="./adminPanel.php" class="primary-color">Torna indietro</a></p>
+        <?php if(!isset($_GET["id"])){ ?>
 
-        <p class="text-centered">
-            *Generando il conto il tavolo diventer&agrave; libero. Solo i tavoli che sono 
-            occupati dai clienti potranno generare il conto.
-        </p>
+            <p class="text-centered"><a href="./adminPanel.php" class="primary-color">Torna indietro</a></p>
 
-        <div class="">
-            <?php echo $getTablesInfo(); ?>
-        </div>
+            <p class="text-centered">
+                *Solo i tavoli che sono occupati dai clienti potranno generare il conto.
+            </p>
 
-        <?php 
-            require_once("./components/modal.php"); 
-            if($response != NULL) $generateModal("mod",$response);
-        ?>
+            <div class="">
+                <?php echo $getTablesInfo(); ?>
+            </div>
+
+            <?php 
+                require_once("./components/modal.php"); 
+                if($response != NULL) $generateModal("mod",$response);
+            ?>
+        <?php } else { ?>
+            <p class="text-centered"><a href="./checkTables.php" class="primary-color">Torna indietro</a></p>
+
+            <p class="text-centered">
+                Tavolo: <?php echo $_GET["name"] ?>
+            </p>
+
+            <?php echo $getTableFoodsList($_GET["id"]); ?>
+        
+        <?php } ?>
 
     </div>
 

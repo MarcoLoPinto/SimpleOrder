@@ -5,6 +5,7 @@ $error = NULL;
 //Mi connetto al DB per il FORM...
 require_once("./components/dbVariables.php");
 require_once("./components/dbConnection.php");
+require_once("./components/functions.php");
 session_start();
 
 if(isset($_SESSION['login']) && isset($_SESSION['type']) && $_SESSION['type'] == 'user'){
@@ -22,10 +23,11 @@ if(isset($_POST["invio"])){
         //controllo se i dati esistono nel database...
         $escapedName = mysqli_real_escape_string($mysqliConnection,$_POST['name']);
         $escapedPassword = mysqli_real_escape_string($mysqliConnection,$_POST['password']);
+        $encrypted = $encrypt_decrypt($escapedPassword,'e');
         $queryResult = mysqli_query($mysqliConnection,
                     "SELECT *
                     FROM tableOrder
-                    WHERE name = '".$escapedName."' AND password ='".$escapedPassword."'");
+                    WHERE name = '".$escapedName."' AND password ='".$encrypted."'");
         
         //Siamo arrivati al punto in cui la query ha prodotto risultato:
         //il DB allora dovrà rilasciare solo una riga con quell'user+pass (altrimenti non sarebbe corretto!)

@@ -11,16 +11,17 @@ require_once("./components/checkSession.php");
 $checkTypeSession('admin');
 
 require_once("./components/menuFunctions.php");
-if(isset($_POST["produceTakenTable"])){
-    if($generateNewPassword($_POST["idTable"])){
-        $removeOrdersFromTable($_POST["idTable"]);
-        $table = $getTableInfo($_POST["idTable"]);
+if(isset($_POST["produceTakenTable"])){ //occupa il tavolo
+    if($generateNewPassword($_POST["idTable"])){ //genera la password nuova
+        $removeOrdersFromTable($_POST["idTable"]); //elimina tutti gli alimenti dal carrello del tavolo
+        $table = $getTableInfo($_POST["idTable"]); //ottiene le info del tavolo
         if($table != NULL){
-            $response = "Nome tavolo: ".$table["name"]."<br>Password: ".$table["password"];
+            $response = "Nome tavolo: ".$table["name"]."<br>Password: ".$encrypt_decrypt($table["password"],'d');
             if(!$setTableisTaken($_POST["idTable"],1)) $response = "Impossibile occupare tavolo";
         } else $response = "Tavolo non esistente";
     } else $response = "Impossibile generare nuova password per il tavolo";
-} else if(isset($_POST["produceFreeTable"])){
+} 
+else if(isset($_POST["produceFreeTable"])){ //libera il tavolo
     if($setTableisTaken($_POST["idTable"],0)) $response = "Tavolo reso disponibile";
     else $response = "Impossibile liberare tavolo";
 }

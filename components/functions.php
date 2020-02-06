@@ -42,6 +42,28 @@
         return $url;
     }
 
+    $random_str = function($length){
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return substr(str_shuffle($chars),0,$length);
+    };
 
+    $encrypt_decrypt = function( $string, $action = 'e' ){
+        $secret_key = 'ha$h3d_k3Y';
+        $secret_iv = 'iV$hed3_k3y';
+     
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $key = hash( 'sha256', $secret_key );
+        $iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+     
+        if( $action == 'e' ) {
+            $output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+        }
+        else if( $action == 'd' ){
+            $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+        }
+     
+        return $output;
+    };
 
 ?>

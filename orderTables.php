@@ -9,6 +9,8 @@ session_start();
 
 require_once("./components/checkSession.php");
 $checkTypeSession('admin');
+
+require_once("./components/menuFunctions.php");
 ?>
 
 <?php
@@ -41,40 +43,10 @@ require_once("./components/xmlMode.html");
 
     <div class="content responsive-content">
 
-        <div class="card row-aligned">
-            <div class="card-left">
-                <p class="card-genere">Crea/elimina un tavolo</p>
-            </div>
-            <div class="card-right">
-                <a class="button-form" href="./createTables.php">Vai</a>
-            </div>
-        </div>
-
-        <div class="card row-aligned">
-            <div class="card-left">
-                <p class="card-genere">Visualizza conto</p>
-            </div>
-            <div class="card-right">
-                <a class="button-form" href="./checkTables.php">Vai</a>
-            </div>
-        </div>
-
-        <div class="card row-aligned">
-            <div class="card-left">
-                <p class="card-genere">Tavoli liberi ed occupati</p>
-            </div>
-            <div class="card-right">
-                <a class="button-form" href="./freeTables.php">Vai</a>
-            </div>
-        </div>
-
-        <div class="card row-aligned">
-            <div class="card-left">
-                <p class="card-genere">Ordini</p>
-            </div>
-            <div class="card-right">
-                <a class="button-form" href="./orderTables.php">Vai</a>
-            </div>
+        <p class="text-centered"><a href="./adminPanel.php" class="primary-color">Torna indietro</a></p>
+        
+        <div id="orders">
+            <?php echo $getOrders() ?>
         </div>
 
     </div>
