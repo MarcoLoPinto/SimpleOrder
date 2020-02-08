@@ -44,14 +44,51 @@ require_once("./components/xmlMode.html");
     <div class="content responsive-content">
 
         <p class="text-centered"><a href="./adminPanel.php" class="primary-color">Torna indietro</a></p>
+
+        <div class="row-aligned">
+            <p class="">Aggiorna ogni</p>
+            <input type="number" id="secondsTime" class="input-login" value="15" />
+            <p class="">secondi</p>
+            <input type="submit" id="secondsButton" class="button-form" name="invio" value="Set" />
+        </div>
         
         <div id="orders">
-            <?php echo $getOrders() ?>
+            <?php //echo $getOrders() ?>
         </div>
 
     </div>
 
     <?php require("./components/footer.html"); ?>
+
+    <script>
+        window.onload = function(){
+            var time = 15;
+
+            var pollingOrders = () => fetch(`./API/orders.php`)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(ordersList) {
+                    let ordersHTML = document.getElementById("orders");
+                    ordersHTML.innerHTML = ordersList;
+
+                    setTimeout(pollingOrders,time*1000);
+                });
+            
+            pollingOrders();
+
+            function isPositiveInteger(n) {
+                return n >>> 0 === parseFloat(n);
+            }
+
+            document.getElementById("secondsButton").addEventListener("click", function(){
+                let secs = document.getElementById("secondsTime").value;
+                if(isPositiveInteger(secs)){
+                    time = secs;
+                }
+            });
+        }
+    </script>
 
 </body>
 

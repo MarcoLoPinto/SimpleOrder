@@ -313,4 +313,19 @@
         return $html;
     };
 
+    $getOrdersAPI = function() use ($mysqliConnection){
+        $queryResult = mysqli_query($mysqliConnection,
+                    "SELECT f.name as name, fi.quantity as quantity, fi.time as time, t.name as tableName
+                    FROM foodInstance fi, tableOrder t, food f
+                    WHERE fi.id_tableOrder = t.id
+                    AND fi.id_food = f.id
+                    ORDER BY time DESC;");
+        
+        $res =  mysqli_fetch_all_php5($queryResult, MYSQLI_ASSOC);
+        if ($res){
+            return $res;
+        }
+        return NULL;
+    };
+
 ?>
