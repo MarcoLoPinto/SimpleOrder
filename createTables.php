@@ -13,12 +13,12 @@ $checkTypeSession('admin');
 require_once("./components/menuFunctions.php");
 require_once("./components/functions.php");
 if(isset($_POST["invio"])){
-    if (empty($_POST['name']) || empty($_POST['password'])){
-        $response = "Nome e/o password mancanti";
+    if (empty($_POST['name'])){
+        $response = "Nome mancante";
     } else {
         //inserisco dati nel database...
         $escapedName = mysqli_real_escape_string($mysqliConnection,$_POST['name']);
-        $escapedPassword = mysqli_real_escape_string($mysqliConnection,$_POST['password']);
+        $escapedPassword = $random_str();
 
         $encrypted = $encrypt_decrypt($escapedPassword,"e");
 
@@ -72,7 +72,6 @@ require_once("./components/xmlMode.html");
 
         <form method="post" action="<?php $_SERVER['PHP_SELF']?>" class="column-centered center-margin">
             <input type="text" class="input-login" name="name" placeholder="nome tavolo" required />
-            <input type="text" class="input-login" name="password" placeholder="password"  required />
             <p><input type="submit" class="button-form" name="invio" value="Genera" /><input type="reset" class="button-form" value="Reset" /></p>
         </form>
 

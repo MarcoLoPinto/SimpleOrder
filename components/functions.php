@@ -42,7 +42,7 @@
         return $url;
     }
 
-    $random_str = function($length){
+    $random_str = function($length = 8){
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         return substr(str_shuffle($chars),0,$length);
     };

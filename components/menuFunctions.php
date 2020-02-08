@@ -274,7 +274,7 @@
     $generateNewPassword = function($id) use ($mysqliConnection,$random_str,$getTableInfo,$encrypt_decrypt){
         $table = $getTableInfo($id);
         if($table!=NULL && $table["isTaken"] == 0){
-            $pass = $random_str(8);
+            $pass = $random_str();
             $encryped = $encrypt_decrypt($pass,'e');
             $queryResult = mysqli_query($mysqliConnection,
                         "UPDATE tableOrder
