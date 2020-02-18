@@ -37,7 +37,7 @@
                                     <p class="value">
                                         <input type="hidden" name="idOrder" value="'.$food["idFood"].'" />
                                         <input type="hidden" name="foodOrder" value="'.$food["name"].'" />
-                                        <input type="number" class="quantity" name="quantity" min="1" max="99" value="1" />
+                                        <input type="number" class="quantity" name="quantity" min="1" max="99" step="1" value="1" />
                                         <input type="submit" class="order-button" name="ordine" value="Ordina" />
                                     </p>
                                 </div>
@@ -128,9 +128,10 @@
         if ($res){
             foreach($res as $k=>$table){
                 $html .= 
-                    '<form method="post" action="'.$_SERVER['PHP_SELF'].'" class="card row-aligned">
+                    '<form method="post" action="'.$_SERVER['PHP_SELF'].'" class="card row-aligned" data-searchbar="'.$table["name"].'">
                         <div class="card-left">
-                            <p class="card-genere">'.$table["name"].' ('.($table["isTaken"]?"occupato":"libero").')</p>
+                            <p class="card-genere">'.$table["name"].' ('.($table["isTaken"]?"occupato":"libero").')<br />
+                            posti: '.$table["seats"].'</p>
                         </div>
                         <div class="card-right">
                             <input type="hidden" name="idTable" value="'.$table["id"].'" />
@@ -182,7 +183,7 @@
         if ($res){
             foreach($res as $k=>$table){
                 $html .= 
-                    '<tr>
+                    '<tr data-searchbar="'.$table["name"].'">
                         <td>'.$table["name"].'</td>
                         <td>'.$encrypt_decrypt($table["password"],'d').'</td>
                         <td>
@@ -211,9 +212,9 @@
         if ($res){
             foreach($res as $k=>$table){
                 $html .= 
-                    '<form method="post" action="'.$_SERVER['PHP_SELF'].'" class="card row-aligned">
+                    '<form method="post" action="'.$_SERVER['PHP_SELF'].'" class="card row-aligned" data-searchbar="'.$table["name"].'">
                         <div class="card-left">
-                            <p class="card-genere">'.$table["name"].'</p>
+                            <p class="card-genere">'.$table["name"].', posti: '.$table["seats"].'</p>
                         </div>
                         <div class="card-right">
                             <input type="hidden" name="idTable" value="'.$table["id"].'" />
@@ -236,9 +237,9 @@
         if ($res){
             foreach($res as $k=>$table){
                 $html .= 
-                    '<form method="post" action="'.$_SERVER['PHP_SELF'].'" class="card row-aligned">
+                    '<form method="post" action="'.$_SERVER['PHP_SELF'].'" class="card row-aligned" data-searchbar="'.$table["name"].'">
                         <div class="card-left">
-                            <p class="card-genere">'.$table["name"].'</p>
+                            <p class="card-genere">'.$table["name"].', posti: '.$table["seats"].'</p>
                         </div>
                         <div class="card-right">
                             <input type="hidden" name="idTable" value="'.$table["id"].'" />

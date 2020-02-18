@@ -52,10 +52,16 @@ require_once("./components/xmlMode.html");
             <p class="text-centered">
                 *Solo i tavoli che sono occupati dai clienti potranno generare il conto.
             </p>
-
+            
+            <div class="column-centered center-margin">
+                <input type="text" id="searchBar" class="input-login" placeholder="cerca tavolo..." />
+            </div>
+            
             <div class="">
                 <?php echo $getTablesInfo(); ?>
             </div>
+
+            <script src="./components/searchBar.js"></script>
 
             <?php 
                 require_once("./components/modal.php"); 

@@ -38,6 +38,10 @@ footer{
     font-size: 0.8em;
 }
 
+.hide{
+    display: none !important;
+}
+
 /* ---- */
 
 .row-centered{

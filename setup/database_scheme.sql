@@ -3,6 +3,7 @@ CREATE TABLE tableOrder(
     name VARCHAR(60) NOT NULL,
     password VARCHAR(80) NOT NULL,
     isTaken BIT NOT NULL DEFAULT 0,
+    seats INT UNSIGNED NOT NULL,
     PRIMARY KEY(id),
     UNIQUE(name)
 );

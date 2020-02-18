@@ -13,19 +13,20 @@ $checkTypeSession('admin');
 require_once("./components/menuFunctions.php");
 require_once("./components/functions.php");
 if(isset($_POST["invio"])){
-    if (empty($_POST['name'])){
-        $response = "Nome mancante";
+    if (empty($_POST['name']) || empty($_POST['seats'])){
+        $response = "Nome e/o posti mancanti";
     } else {
         //inserisco dati nel database...
         $escapedName = mysqli_real_escape_string($mysqliConnection,$_POST['name']);
         $escapedPassword = $random_str();
+        $seats = (int)$_POST["seats"];
 
         $encrypted = $encrypt_decrypt($escapedPassword,"e");
 
         $queryResult = mysqli_query($mysqliConnection,
-                    "INSERT INTO tableOrder (name, password)
+                    "INSERT INTO tableOrder (name, password, seats)
                     VALUES
-                        ('".$escapedName."', '".$encrypted."');");
+                        ('".$escapedName."', '".$encrypted."', ".$seats.");");
 
         if($queryResult) $response = "Tavolo generato con successo";
         else $response = "Impossibile generare tavolo (esiste gia?)";
@@ -72,6 +73,7 @@ require_once("./components/xmlMode.html");
 
         <form method="post" action="<?php $_SERVER['PHP_SELF']?>" class="column-centered center-margin">
             <input type="text" class="input-login" name="name" placeholder="nome tavolo" required />
+            <input type="number" class="input-login" name="seats" placeholder="posti" min="0" step="1" required />
             <p><input type="submit" class="button-form" name="invio" value="Genera" /><input type="reset" class="button-form" value="Reset" /></p>
         </form>
 
@@ -79,9 +81,15 @@ require_once("./components/xmlMode.html");
 
         <h2 class="text-centered">Tavoli</h2>
 
+        <div class="column-centered center-margin">
+            <input type="text" id="searchBar" class="input-login" placeholder="cerca tavolo..." />
+        </div>
+
         <div class="">
             <?php echo $getTables(); ?>
         </div>
+
+        <script src="./components/searchBar.js"></script>
 
         <?php 
             require_once("./components/modal.php"); 

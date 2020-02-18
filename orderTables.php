@@ -47,7 +47,7 @@ require_once("./components/xmlMode.html");
 
         <div class="row-aligned">
             <p class="">Aggiorna ogni</p>
-            <input type="number" id="secondsTime" class="input-login" value="15" />
+            <input type="number" id="secondsTime" class="input-login" value="15" min="2" step="1" />
             <p class="">secondi</p>
             <input type="submit" id="secondsButton" class="button-form" name="invio" value="Set" />
         </div>

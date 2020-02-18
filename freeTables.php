@@ -65,6 +65,10 @@ require_once("./components/xmlMode.html");
             tavolo, cos&igrave; da poter essere usato da un nuovo cliente (mostrando la password)
         </p>
 
+        <div class="column-centered center-margin">
+            <input type="text" id="searchBar" class="input-login" placeholder="cerca tavolo..." />
+        </div>
+
         <h2 class="text-centered">Tavoli liberi</h2>
 
         <div class="">
@@ -82,6 +86,8 @@ require_once("./components/xmlMode.html");
         <div class="">
             <?php echo $getTakenTables(); ?>
         </div>
+
+        <script src="./components/searchBar.js"></script>
 
         <?php 
             require_once("./components/modal.php"); 
