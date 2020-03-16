@@ -84,7 +84,12 @@ require_once("./components/xmlMode.html");
             document.getElementById("secondsButton").addEventListener("click", function(){
                 let secs = document.getElementById("secondsTime").value;
                 if(isPositiveInteger(secs)){
-                    time = secs;
+                    if(secs >= 5)
+                        time = secs;
+                    else{
+                        time = 5;
+                        document.getElementById("secondsTime").value = 5;
+                    }
                 }
             });
         }
