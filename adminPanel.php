@@ -77,6 +77,15 @@ require_once("./components/xmlMode.html");
             </div>
         </div>
 
+        <div class="card row-aligned">
+            <div class="card-left">
+                <p class="card-genere">Men&ugrave;</p>
+            </div>
+            <div class="card-right">
+                <a class="button-form" href="./menuTables.php">Vai</a>
+            </div>
+        </div>
+
     </div>
 
     <?php require("./components/footer.html"); ?>

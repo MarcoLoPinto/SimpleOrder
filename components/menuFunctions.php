@@ -329,4 +329,154 @@
         return NULL;
     };
 
+    $getMenuAdmin = function() use ($mysqliConnection){
+        $arr = Array();
+        $html = "";
+
+        $queryCategory = mysqli_query($mysqliConnection,
+                    "SELECT *
+                    FROM category c
+                    ORDER BY c.id;");
+        $resCategory =  mysqli_fetch_all_php5($queryCategory, MYSQLI_ASSOC);
+        
+        //print_r($res);
+        //print_r($resCategory);
+        if ($resCategory){
+            foreach($resCategory as $k => $category){
+                $arr[$category["type"]] = Array();
+                $arr[$category["type"]]["idCategory"] = $category["id"];
+                $arr[$category["type"]]["content"] = Array();
+                
+
+                $queryResult = mysqli_query($mysqliConnection,
+                    "SELECT *, f.id as idFood
+                    FROM food f, category c
+                    WHERE f.id_category = c.id
+                    AND c.id = ".$category["id"].";");
+                $res =  mysqli_fetch_all_php5($queryResult, MYSQLI_ASSOC);
+
+                //print_r($res);
+                foreach($res as $k => $food){
+                    array_push($arr[$category["type"]]["content"],$food);
+                }
+
+            }
+        }
+
+        foreach($arr as $foodtype=>$foods){
+            $html .= '
+                    <div>
+                        <p class="primary-color text-title">'.$foodtype.'</p>
+                        <hr class="hr-primary-color" />
+                        <div class="table">';
+                foreach($foods["content"] as $ki=>$food){
+                    $html .= '
+                            <form method="post" action="'.$_SERVER['PHP_SELF'].'" class="">
+                                <div class="row">
+                                    <strong class="value">'.$food["name"].'</strong>
+                                    <div class="dots"></div>
+                                    <div class="value">'.$food["price"].'&euro; &nbsp;</div>
+                                    <p class="value">
+                                        <a class="order-button" href="./editFood.php?id='.$food["idFood"].'">Modifica</a>
+                                    </p>
+                                </div>
+                                <p class="order-description">'.(($food["description"]=="")?"&nbsp;":$food["description"]).'</p>
+                            </form>';
+                }
+            $html .= '  
+                        </div>
+                        <form method="post" action="'.$_SERVER['PHP_SELF'].'" class="row-aligned">
+                            <div class="">
+                                <p class="value">
+                                    <input type="hidden" name="idCategory" value="'.$foods["idCategory"].'" />
+                                    <input type="submit" class="order-button" name="deleteCategory" value="Elimina Categoria" />
+                                    <a class="order-button" href="./addInCategory.php?idCategory='.$foods["idCategory"].'&nameCategory='.$foodtype.'">Aggiungi alla Categoria</a>
+                                </p>
+                            </div>
+                        </form>
+
+                    </div>';
+
+        }
+
+        return $html;
+    };
+
+    $deleteCategory = function($id) use ($mysqliConnection){
+        $queryResult = mysqli_query($mysqliConnection,
+                    "DELETE FROM category
+                    WHERE id = '".$id."';");
+
+        if(!$queryResult){
+            return false;
+        }
+
+        return true;
+    };
+
+    $createCategory = function($name) use ($mysqliConnection){
+        $queryResult = mysqli_query($mysqliConnection,
+                    "INSERT INTO category (type)
+                    VALUES
+                        ('".$name."');");
+
+        //print_r(mysqli_error($mysqliConnection));
+        if(!$queryResult){
+            return false;
+        }
+
+        return true;
+    };
+
+    $addFoodToCategory = function($name,$description,$price,$idCategory) use ($mysqliConnection){
+        $queryResult = mysqli_query($mysqliConnection,
+                    "INSERT INTO food (name, price, id_category, description)
+                    VALUES
+                        ('".$name."','".$price."','".$idCategory."','".$description."');");
+
+        //print_r(mysqli_error($mysqliConnection));
+        if(!$queryResult){
+            return false;
+        }
+
+        return true;
+    };
+
+    $getFoodInfo = function($id) use ($mysqliConnection){
+        $queryResult = mysqli_query($mysqliConnection,
+                    "SELECT *
+                    FROM food f
+                    WHERE f.id = '".$id."';");
+        $res =  mysqli_fetch_array($queryResult, MYSQLI_ASSOC);
+        if ($res){
+            return $res;
+        }
+        return NULL;
+    };
+
+    $editFood = function($id,$name,$description,$price) use ($mysqliConnection){
+
+        $queryResult = mysqli_query($mysqliConnection,
+                    "UPDATE food
+                    SET name = '".$name."',
+                    price = '".$price."',
+                    description = '".$description."'
+                    WHERE id = '".$id."';");
+        
+        if ($queryResult) return true;
+        
+        return false;
+    };
+
+    $deleteFood = function($id) use ($mysqliConnection){
+
+        $queryResult = mysqli_query($mysqliConnection,
+                    "DELETE FROM food
+                    WHERE id = '".$id."';");
+        
+        if ($queryResult) return true;
+        
+        return false;
+    };
+
 ?>
